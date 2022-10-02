@@ -1,0 +1,54 @@
+---
+title: "BusinessForecasting homework4"
+author: "Naga Asritha Narra"
+date: "2022-10-02"
+output: html_document
+---
+
+
+```{r}
+library(MASS)
+data()
+AirPassengers
+data("AirPassengers")
+force(AirPassengers)
+library(fpp)
+library(fpp2)
+library(TTR)
+attributes(AirPassengers)
+plot(AirPassengers)
+Acf(AirPassengers)
+mean_forecast <- meanf(AirPassengers,5)
+plot(mean_forecast)
+naive_forecast <- naive(AirPassengers,5)
+plot(naive_forecast)
+rwf_forecast <- rwf(AirPassengers,5)
+rwf_forecast <- rwf(AirPassengers,5, drift=TRUE)
+snaive_forecast <- snaive(AirPassengers,5)
+MA5_forecast <- ma(AirPassengers,order=5)
+MA9_forecast <- ma(AirPassengers,order=9)
+plot(mean_forecast)
+lines(naive_forecast$mean,col="red")
+lines(rwf_forecast$mean,col="green")
+lines(snaive_forecast$mean,col="black")
+lines(MA5_forecast,col="Pink")
+lines(MA9_forecast,col="Blue")
+attributes(naive_forecast)
+ets_forecast <- ets(AirPassengers)
+plot(ets_forecast)
+attributes(ets_forecast)
+ets_forecast$mse
+HW_forecast <- HoltWinters(AirPassengers)
+plot(HW_forecast)
+SSE_Simple <- HoltWinters(AirPassengers,beta=FALSE,gamma=FALSE)
+attributes(SSE_Simple)
+plot(SSE_Simple)
+SSE_Simple$SSE
+head(SSE_Simple$fitted)
+forecast_ets_1 <- forecast.ets(ets_forecast, h=5)
+plot(forecast_ets_1)
+forecast_ets_2 <- forecast(ets_forecast, h=5)
+plot(forecast_ets_2)
+```
+
+
